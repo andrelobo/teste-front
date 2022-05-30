@@ -121,7 +121,7 @@ axios.post(api, state);
 
        <Form.Group>
        
-       <Form.Label style={{ textAlign: "left"}}>Name</Form.Label>
+       <Form.Label style={{ textAlign: "left"}}>Nome</Form.Label>
        <Form.Control
         type="text"
         placeholder="Enter Name"
@@ -132,7 +132,7 @@ axios.post(api, state);
        </Form.Group>  
 
        <Form.Group>
-       <Form.Label style={{ textAlign: "left"}}>document</Form.Label>
+       <Form.Label style={{ textAlign: "left"}}>Documento</Form.Label>
        <Form.Control
         type="text"
         placeholder="Enter document"
@@ -143,29 +143,19 @@ axios.post(api, state);
        </Form.Group>
 
        <Form.Group>
-       <Form.Label style={{ textAlign: "left"}}>bank</Form.Label>
+       <Form.Label style={{ textAlign: "left"}}>Banco</Form.Label>
        <Form.Control
         type="text"
         placeholder="Enter bank"
         name="bank"
-        value={bank} 
+        value={bankName} 
         onChange={handleChange}         
         />       
        </Form.Group>
 
-       <Form.Group>
-       <Form.Label style={{ textAlign: "left"}}>bankName</Form.Label>
-       <Form.Control
-        type="text"
-        placeholder="Enter bankName"
-        name="bankName"
-        value={bankName} 
-        onChange={handleChange}      
-        />       
-       </Form.Group>
-
+      
         <Form.Group>
-        <Form.Label style={{ textAlign: "left"}}>code</Form.Label>
+        <Form.Label style={{ textAlign: "left"}}>Código bancário</Form.Label>
         <Form.Control
         type="text"
         placeholder="Enter code"
@@ -177,7 +167,7 @@ axios.post(api, state);
         </Form.Group>
 
         <Form.Group>
-        <Form.Label style={{ textAlign: "left"}}>agency</Form.Label>
+        <Form.Label style={{ textAlign: "left"}}>Agência</Form.Label>
         <Form.Control
         type="text"
         placeholder="Enter agency"
@@ -189,7 +179,7 @@ axios.post(api, state);
         </Form.Group>
 
         <Form.Group>
-        <Form.Label style={{ textAlign: "left"}}>account</Form.Label>
+        <Form.Label style={{ textAlign: "left"}}>Conta</Form.Label>
         <Form.Control
         type="text"
         placeholder="Enter account"
