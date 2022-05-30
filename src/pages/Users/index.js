@@ -1,26 +1,3 @@
-/* import React from "react";
-import { useNavigate } from "react-router-dom";
-import Button from "../../components/Button";
-import useAuth from "../../hooks/useAuth";
-import * as C from "./styles";
-
-const Home = () => {
-  const { signout } = useAuth();
-  const navigate = useNavigate();
-
-  return (
-    <C.Container>
-      <C.Title>Home</C.Title>
-      <Button Text="Sair" onClick={() => [signout(), navigate("/")]}>
-        Sair
-      </Button>
-    </C.Container>
-  );
-};
-
-export default Home; */
-
-
 import React, { useState, useEffect } from 'react';
 import { Table, Container, Row, Col, Button, ButtonGroup, Form, Navbar, FormLabel } from 'react-bootstrap';
 import axios from 'axios';
@@ -28,29 +5,33 @@ import { toast, ToastContainer} from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 
-
-
-
 const api ="http://localhost:5000/users";
 
 
 const initialState = {
 
-  name:"",
-  email:"",
-  contact:"",
-  address:"",
+
+      name:"",
+      document:"",
+      bank:"",
+      bankName:"",
+      code:"",
+      agency:"",
+      account:"",                                                  
+
+
+ 
 };
 
 
-function Home() {
+function Users() {
   const [state, setState] = useState(initialState);
   const [data, setData] = useState([]);
 
   const [userId, setUserId] = useState(null);
   const [editMode, setEditMode] = useState(false);
 
-  const { name, email, contact, address } = state;
+  const { name, document, bank, bankName, code, agency, account } = state;
 
 
 
@@ -100,7 +81,7 @@ setEditMode(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(!name || !email || !contact || !address){
+    if(!name || !document || !bank || !bankName || !code || !agency || !account){
       toast.error("Please fill all the fields");
     } else {
 
@@ -108,7 +89,7 @@ setEditMode(true);
 
 axios.post(api, state);
       toast.success("User added successfully");
-      setState({ name:"", email:"", contact:"", address:""});
+      setState({ name:"", document:"", bank:"", bankName:"", code:"", agency:"", account:"" });
       setTimeout(() => loadUsers(), 500);
 
 
@@ -116,7 +97,7 @@ axios.post(api, state);
       else {
         axios.put(`${api}/${userId}`, state);
         toast.success("User updated successfully");
-        setState({ name:"", email:"", contact:"", address:""});
+        setState({ name:"", document:"", bank:"", bankName:"", code:"", agency:"", account:"" });
         setTimeout(() => loadUsers(), 500);
         setEditMode(false);
         setUserId(null);
@@ -151,37 +132,76 @@ axios.post(api, state);
        </Form.Group>  
 
        <Form.Group>
-       <Form.Label style={{ textAlign: "left"}}>Email</Form.Label>
+       <Form.Label style={{ textAlign: "left"}}>document</Form.Label>
        <Form.Control
         type="text"
-        placeholder="Enter Email"
-        name="email"
-        value={email}  
+        placeholder="Enter document"
+        name="document"
+        value={document}  
         onChange={handleChange}        
         />       
        </Form.Group>
 
        <Form.Group>
-       <Form.Label style={{ textAlign: "left"}}>Contact</Form.Label>
+       <Form.Label style={{ textAlign: "left"}}>bank</Form.Label>
        <Form.Control
         type="text"
-        placeholder="Enter Contact"
-        name="contact"
-        value={contact} 
+        placeholder="Enter bank"
+        name="bank"
+        value={bank} 
         onChange={handleChange}         
         />       
        </Form.Group>
 
        <Form.Group>
-       <Form.Label style={{ textAlign: "left"}}>Address</Form.Label>
+       <Form.Label style={{ textAlign: "left"}}>bankName</Form.Label>
        <Form.Control
         type="text"
-        placeholder="Enter address"
-        name="address"
-        value={address} 
+        placeholder="Enter bankName"
+        name="bankName"
+        value={bankName} 
         onChange={handleChange}      
         />       
        </Form.Group>
+
+        <Form.Group>
+        <Form.Label style={{ textAlign: "left"}}>code</Form.Label>
+        <Form.Control
+        type="text"
+        placeholder="Enter code"
+        name="code"
+        value={code}
+        onChange={handleChange}
+        />
+
+        </Form.Group>
+
+        <Form.Group>
+        <Form.Label style={{ textAlign: "left"}}>agency</Form.Label>
+        <Form.Control
+        type="text"
+        placeholder="Enter agency"
+        name="agency"
+        value={agency}
+        onChange={handleChange}
+        />
+
+        </Form.Group>
+
+        <Form.Group>
+        <Form.Label style={{ textAlign: "left"}}>account</Form.Label>
+        <Form.Control
+        type="text"
+        placeholder="Enter account"
+        name="account"
+        value={account}
+        onChange={handleChange}
+        />
+
+        </Form.Group>
+
+        
+
        <div className="d-grid gap-2 mt-2"> 
         <Button type="submit" variant="primary" size="1g">
         
@@ -200,9 +220,9 @@ axios.post(api, state);
           <tr>
             <th>No.</th>
             <th>Name</th>
-            <th>Email</th>
-            <th>Contact</th>
-            <th>Address</th>
+            <th>document</th>
+            <th>bank</th>
+            <th>bankName</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -211,9 +231,9 @@ axios.post(api, state);
             <tr>
               <td>{index + 1}</td>
               <td>{item.name}</td>
-              <td>{item.email}</td>
-              <td>{item.contact}</td>
-              <td>{item.address}</td>
+              <td>{item.document}</td>
+              <td>{item.bank}</td>
+              <td>{item.bankName}</td>
               <td>
 
               <ButtonGroup>
@@ -247,4 +267,4 @@ axios.post(api, state);
   );
 }
 
-export default Home;
+export default Users;
