@@ -32,7 +32,7 @@ function Users() {
   const [userId, setUserId] = useState(null);
   const [editMode, setEditMode] = useState(false);
 
-  const { name, document, bank } = state;
+  const { name, document, bankName, code, agency, account   } = state;
 
 
 
@@ -60,7 +60,7 @@ function Users() {
 
   const handleDelete = async (id) => {
 
-    if(window.confirm("Are you sure?")){
+    if(window.confirm("Você tem certeza que quer deletar usuário??")){
       await axios.delete(api + "/" + id);
       toast.success("User Deleted");
       setTimeout(() => loadUsers(), 500);
@@ -82,33 +82,23 @@ setEditMode(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(!name || !document || !bank || !bank.bankName || !bank.code || !bank.agency || !bank.account){
-      toast.error("Please fill all the fields");
+    if(!name || !document || !bankName || !code || !agency || !account){
+      toast.error("Por favor, preencha todos os campos");
     } else {
 
       if(!editMode){
 
 axios.post(api, state);
       toast.success("User added successfully");
-      setState({ name:"", document:"", "bank": {
-        bankName: "",
-        code: "",
-        agency: "",
-        account: ""
-      }});
+      setState({ name:"", document:"", bankName: "", code: "", agency: "", account: "" });
       setTimeout(() => loadUsers(), 500);
 
 
       }
       else {
         axios.put(`${api}/${userId}`, state);
-        toast.success("User updated successfully");
-        setState({ name:"", document:"", "bank": {
-          bankName: "",
-          code: "",
-          agency: "",
-          account: ""
-        }});
+        toast.success("Usuário atualizado com sucesso!");
+        setState({ name:"", document:"", bankName: "", code: "", agency: "", account: "" });      
         setTimeout(() => loadUsers(), 500);
         setEditMode(false);
         setUserId(null);
@@ -122,7 +112,7 @@ axios.post(api, state);
    <ToastContainer />
     <Navbar bg="primary" variant="dark" className="justify-content-center" >
       <Navbar.Brand>
-          React json server app with react-bootstrap
+          Lista de Usuários
       </Navbar.Brand>
     </Navbar>  
     <Container style={{ marginTop: "70px"}}>
@@ -158,8 +148,8 @@ axios.post(api, state);
        <Form.Control
         type="text"
         placeholder="Enter bank"
-        name="bank"
-        value={bank.bankName} 
+        name="bankName"
+        value={bankName} 
         onChange={handleChange}         
         />       
        </Form.Group>
@@ -171,7 +161,7 @@ axios.post(api, state);
         type="text"
         placeholder="Enter code"
         name="code"
-        value={bank.code}
+        value={code}
         onChange={handleChange}
         />
 
@@ -183,7 +173,7 @@ axios.post(api, state);
         type="text"
         placeholder="Enter agency"
         name="agency"
-        value={bank.agency}
+        value={agency}
         onChange={handleChange}
         />
 
@@ -195,7 +185,7 @@ axios.post(api, state);
         type="text"
         placeholder="Enter account"
         name="account"
-        value={bank.account}
+        value={account}
         onChange={handleChange}
         />
 
@@ -236,10 +226,10 @@ axios.post(api, state);
               <td>{index + 1}</td>
               <td>{item.name}</td>
               <td>{item.document}</td>
-              <td>{item.bank.bankName}</td>
-              <td>{item.bank.code}</td>
-              <td>{item.bank.agency}</td>
-              <td>{item.bank.account}</td>
+              <td>{item.bankName}</td>
+              <td>{item.code}</td>
+              <td>{item.agency}</td>
+              <td>{item.account}</td>
 
               <td>
 
