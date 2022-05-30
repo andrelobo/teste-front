@@ -11,13 +11,14 @@ const api ="http://localhost:5000/users";
 const initialState = {
 
 
-      name:"",
-      document:"",
-      bank:"",
-      bankName:"",
-      code:"",
-      agency:"",
-      account:"",                                                  
+  name:"", 
+  document:"", 
+        "bank": {
+                  bankName: "",
+                  code: "",
+                  agency: "",
+                  account: ""
+          },                                     
 
 
  
@@ -31,7 +32,7 @@ function Users() {
   const [userId, setUserId] = useState(null);
   const [editMode, setEditMode] = useState(false);
 
-  const { name, document, bank, bankName, code, agency, account } = state;
+  const { name, document, bank } = state;
 
 
 
@@ -81,7 +82,7 @@ setEditMode(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(!name || !document || !bank || !bankName || !code || !agency || !account){
+    if(!name || !document || !bank || !bank.bankName || !bank.code || !bank.agency || !bank.account){
       toast.error("Please fill all the fields");
     } else {
 
@@ -89,7 +90,12 @@ setEditMode(true);
 
 axios.post(api, state);
       toast.success("User added successfully");
-      setState({ name:"", document:"", bank:"", bankName:"", code:"", agency:"", account:"" });
+      setState({ name:"", document:"", "bank": {
+        bankName: "",
+        code: "",
+        agency: "",
+        account: ""
+      }});
       setTimeout(() => loadUsers(), 500);
 
 
@@ -97,7 +103,12 @@ axios.post(api, state);
       else {
         axios.put(`${api}/${userId}`, state);
         toast.success("User updated successfully");
-        setState({ name:"", document:"", bank:"", bankName:"", code:"", agency:"", account:"" });
+        setState({ name:"", document:"", "bank": {
+          bankName: "",
+          code: "",
+          agency: "",
+          account: ""
+        }});
         setTimeout(() => loadUsers(), 500);
         setEditMode(false);
         setUserId(null);
@@ -148,7 +159,7 @@ axios.post(api, state);
         type="text"
         placeholder="Enter bank"
         name="bank"
-        value={bankName} 
+        value={bank.bankName} 
         onChange={handleChange}         
         />       
        </Form.Group>
@@ -160,7 +171,7 @@ axios.post(api, state);
         type="text"
         placeholder="Enter code"
         name="code"
-        value={code}
+        value={bank.code}
         onChange={handleChange}
         />
 
@@ -172,7 +183,7 @@ axios.post(api, state);
         type="text"
         placeholder="Enter agency"
         name="agency"
-        value={agency}
+        value={bank.agency}
         onChange={handleChange}
         />
 
@@ -184,7 +195,7 @@ axios.post(api, state);
         type="text"
         placeholder="Enter account"
         name="account"
-        value={account}
+        value={bank.account}
         onChange={handleChange}
         />
 
@@ -209,10 +220,13 @@ axios.post(api, state);
         <thead>
           <tr>
             <th>No.</th>
-            <th>Name</th>
-            <th>document</th>
-            <th>bank</th>
-            <th>bankName</th>
+            <th>Nome</th>
+            <th>Documento</th>
+            <th>Banco</th>
+            <th>Código bancário</th>
+            <th>Agência</th>
+            <th>Conta</th>
+
             <th>Action</th>
           </tr>
         </thead>
@@ -222,8 +236,11 @@ axios.post(api, state);
               <td>{index + 1}</td>
               <td>{item.name}</td>
               <td>{item.document}</td>
-              <td>{item.bank}</td>
-              <td>{item.bankName}</td>
+              <td>{item.bank.bankName}</td>
+              <td>{item.bank.code}</td>
+              <td>{item.bank.agency}</td>
+              <td>{item.bank.account}</td>
+
               <td>
 
               <ButtonGroup>
